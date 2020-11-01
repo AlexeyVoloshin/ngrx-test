@@ -1,0 +1,13 @@
+<span class="addToTop">
+<div class="baseAdd addTask">
+  <input
+  type="text"
+  class="from-control task-input"
+  placeholder="Добавить задачу..."
+  [(ngModel)]="text"
+  >
+  <button
+  *ngIf="text"
+  class="btn" (click)="addNewTodo()">Добавить</button>
+</div>
+</span>

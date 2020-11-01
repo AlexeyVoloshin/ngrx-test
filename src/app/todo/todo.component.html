@@ -1,0 +1,15 @@
+<div class="card">
+  <section class="section">
+    <input
+    id="check"
+    type="checkbox"
+    [checked]="todo.completed"
+    >
+
+  <p
+  [ngClass]="{'complite': todo.completed}"
+  >{{todo.text}}</p>
+  <p>{{todo.date}}</p>
+  <button class="btn" (click)=deleteTodo()>Удалить</button>
+</section>
+</div>

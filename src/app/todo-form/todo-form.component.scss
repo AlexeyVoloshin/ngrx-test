@@ -1,0 +1,21 @@
+.addToTop {
+  display: block;
+}
+.baseAdd {
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.addTask {
+  // box-shadow: 0 17px 0 16px #e5e5e5;
+  // margin: 0 8px;
+  // padding: 0 12px;
+}
+task-input {
+  border: none;
+}
+.addTask:focus {
+  box-shadow: 0 17px 0 -16px #3e69e4;
+}
