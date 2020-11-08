@@ -19,7 +19,7 @@ export class TodoEditComponent implements OnInit {
 
   editText(): void {
     if (this.text) {
-      if (this.text === this.todo.text) return;
+      if(this.text === this.todo.text) { return; }
       const editTodo: ITodo = {
         id: this.todo.id,
         text: this.text

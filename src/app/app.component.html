@@ -9,7 +9,7 @@
   <app-todo-form
   (onTodo)="addTodo($event)"
   ></app-todo-form>
-  <span *ngFor="let todo of todoList$ | async; let i = index ">
+  <span *ngFor="let todo of todoList$ | async">
 
     <app-todo *ngIf="!editIds.includes(todo.id); else edit"
     [todo]="todo"

@@ -11,24 +11,15 @@ export interface TodoState {
 
 const initialState: TodoState = {
   idIncrement: 3,
-  todoList: [
-    {
-      text: '1. Освоить NgRx Store',
-      completed: false, id: 1,
-      createdAt: moment().format('DD.MM.YYYY-h:mm:ss a'),
-      updatedAt: moment().format('DD.MM.YYYY-h:mm:ss a')
-    },
-    {
-      text: '2. Освоить NgRx Store',
-      completed: false, id: 2,
-      createdAt: moment().format('DD.MM.YYYY-h:mm:ss a'),
-      updatedAt: moment().format('DD.MM.YYYY-h:mm:ss a'),
-    }
-  ]
+  todoList: []
 };
 
 export const todoReducer = (state: TodoState = initialState, action: TodoActions) => {
   switch (action.type) {
+    case todoActionsType.load:
+      return {
+        ...action.payload.state
+      };
     case todoActionsType.create:
       return {
         ...state,

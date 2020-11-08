@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ITodo } from './models/todo.interface';
-import * as moment from 'moment';
 import { select, Store } from '@ngrx/store';
 import { CountState } from './store/reducers/count/count.reducer';
 import { Observable } from 'rxjs';
@@ -10,6 +9,7 @@ import { CountClearAction, CountDecreaseAction, CountIncreaseAction } from './st
 import { TodoState } from './store/reducers/todo/todo.reducer';
 import { TodoCompletedAction, TodoCreateAction, TodoDeletedAction, TodoEditAction } from './store/reducers/todo/todo.actions';
 import { todoListSelector } from './store/reducers/todo/todo.selectors';
+import { TodoStorageService } from './services/todo-storage.service';
 
 
 @Component({
@@ -26,9 +26,11 @@ export class AppComponent implements OnInit{
   todoList$: Observable<ITodo[]> = this.storeTodo$.pipe(select(todoListSelector));
   constructor(
     private store$: Store<CountState>,
-    private storeTodo$: Store<TodoState>
+    private storeTodo$: Store<TodoState>,
+    private todoStorageService: TodoStorageService
     ) {}
   ngOnInit(): void {
+    this.todoStorageService.init();
   }
 
   addTodo(todo: ITodo): void {

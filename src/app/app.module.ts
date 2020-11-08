@@ -27,7 +27,7 @@ import { TodoEditComponent } from './todo-edit/todo-edit.component';
     TodoFormComponent,
     TodoComponent,
     HeaderComponent,
-    TodoEditComponent
+    TodoEditComponent,
   ],
   imports: [
     BrowserModule,
