@@ -1,13 +1,26 @@
 <span class="addToTop">
-<div class="baseAdd addTask">
-  <input
-  type="text"
-  class="from-control task-input"
-  placeholder="Добавить задачу..."
-  [(ngModel)]="text"
-  >
-  <button
-  *ngIf="text"
-  class="btn" (click)="addNewTodo()">Добавить</button>
-</div>
+<form
+#todoForm="ngForm"
+novalidate
+(ngSubmit)="onSubmit(todoForm)"
+>
+  <div class="form-group">
+    <input
+    type="text"
+    name="text"
+    class="from-control task-input"
+    placeholder="Добавить задачу..."
+    ngModel
+    required
+    >
+  </div>
+  <div class="form-group">
+    <input
+    type="submit"
+    [disabled]="todoForm.invalid"
+    class="btn"
+    value="Добавить"
+    />
+  </div>
+</form>
 </span>

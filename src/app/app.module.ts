@@ -14,6 +14,8 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AppEffects } from './store/effects/app.effects';
 import { reducers, metaReducers } from './store/reducers';
 import { AppRoutingModule } from './app-routing.module';
+import { todoReducer, TODO_REDUCER_NODE } from './store/reducers/todo/todo.reducer';
+import { TodoEditComponent } from './todo-edit/todo-edit.component';
 // import { appReducers } from './store/reducers/app.reducers';
 // import { reducers, metaReducers } from './store/reducers;
 
@@ -24,12 +26,14 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     TodoFormComponent,
     TodoComponent,
-    HeaderComponent
+    HeaderComponent,
+    TodoEditComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    StoreModule.forFeature(TODO_REDUCER_NODE, todoReducer),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {

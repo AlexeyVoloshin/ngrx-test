@@ -9,9 +9,20 @@
   <app-todo-form
   (onTodo)="addTodo($event)"
   ></app-todo-form>
-  <app-todo
-  *ngFor="let todo of todos"
-  [todo]="todo"
-  (onDeleteTodo)="onDelete($event)"
-  ></app-todo>
+  <span *ngFor="let todo of todoList$ | async; let i = index ">
+
+    <app-todo *ngIf="!editIds.includes(todo.id); else edit"
+    [todo]="todo"
+    (onEditMode)="onEditMode(todo.id)"
+    (onDeleteTodo)="onDelete(todo)"
+    (onCompleted)="onCompleted(todo)"
+    ></app-todo>
+
+    <ng-template #edit >
+      <app-todo-edit
+      [todo]="todo"
+      (onEdit)="onEdit($event)"
+      ></app-todo-edit>
+    </ng-template>
+  </span>
 </div>

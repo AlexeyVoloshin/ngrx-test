@@ -7,6 +7,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { selectCount, selectUpdateAt } from './store/reducers/count/count.selectors';
 import { CountClearAction, CountDecreaseAction, CountIncreaseAction } from './store/reducers/count/count.actions';
+import { TodoState } from './store/reducers/todo/todo.reducer';
+import { TodoCompletedAction, TodoCreateAction, TodoDeletedAction, TodoEditAction } from './store/reducers/todo/todo.actions';
+import { todoListSelector } from './store/reducers/todo/todo.selectors';
 
 
 @Component({
@@ -15,35 +18,48 @@ import { CountClearAction, CountDecreaseAction, CountIncreaseAction } from './st
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
+  public editIds: Array<number> = [];
   public count$: Observable<number> = this.store$.pipe(select(selectCount));
   public disapleDecrease$: Observable<boolean> = this.count$.pipe(map(count => count <= 0));
   public updateAt$: Observable<number> = this.store$.pipe(select(selectUpdateAt));
 
-  todos: ITodo[] = [
-    {text: '1. Освоить NgRx Store', date: '01.11.2020', completed: false, id: 1},
-    {text: '2. Освоить NgRx Store', date: '01.11.2020', completed: false, id: 2},
-  ];
-  constructor(private store$: Store<CountState>) {}
+  todoList$: Observable<ITodo[]> = this.storeTodo$.pipe(select(todoListSelector));
+  constructor(
+    private store$: Store<CountState>,
+    private storeTodo$: Store<TodoState>
+    ) {}
   ngOnInit(): void {
   }
 
   addTodo(todo: ITodo): void {
-    this.todos.push(todo);
+    // this.todos.push(todo);
+    this.storeTodo$.dispatch(new TodoCreateAction({ text: todo.text }));
   }
 
   onDelete(todo: ITodo): void {
-    console.log(todo);
-    this.todos = this.todos.filter(c => c.id !== todo.id);
-    console.log(this.todos);
+    this.storeTodo$.dispatch(new TodoDeletedAction({ todo }));
   }
 
-  increase() {
+  onCompleted(todo: ITodo): void {
+    this.storeTodo$.dispatch(new TodoCompletedAction({ todo }));
+  }
+
+  onEdit(todo: ITodo): void {
+    this.storeTodo$.dispatch(new TodoEditAction({ todo }));
+    this.editIds = this.editIds.filter(item => item !== todo.id);
+  }
+
+  onEditMode(id): void {
+    this.editIds.push(id);
+  }
+
+  increase(): void {
     this.store$.dispatch(new CountIncreaseAction());
   }
-  decrease() {
+  decrease(): void {
     this.store$.dispatch(new CountDecreaseAction());
   }
-  clear() {
+  clear(): void {
     this.store$.dispatch(new CountClearAction());
   }
 }

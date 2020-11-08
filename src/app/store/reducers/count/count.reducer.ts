@@ -27,7 +27,7 @@ export const countReducer = (state = initialState, action: CountActions) => {
     case countActionsType.clear:
       return {
         ...state,
-        count: 0
+        count: 0,
       };
     case countActionsType.updateAt:
       return {

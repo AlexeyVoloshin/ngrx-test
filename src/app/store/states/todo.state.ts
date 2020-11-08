@@ -1,9 +1,8 @@
-import { Todo } from 'src/app/app.component';
 import { ITodo } from '../../models/todo.interface';
 
 export interface ITodoState {
   todos: ITodo[];
-  selectedTodo: Todo;
+  selectedTodo: ITodo;
 }
 
 export const initialTodoState: ITodoState = {

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ITodo } from '../models/todo.interface';
-import * as moment from 'moment';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-form',
@@ -11,25 +11,20 @@ export class TodoFormComponent implements OnInit {
   // tslint:disable-next-line: no-output-on-prefix
   private id = 2;
 
-  @Output() onTodo: EventEmitter<Todo> = new EventEmitter<Todo>();
-
-  text: string;
+  @Output() onTodo: EventEmitter<ITodo> = new EventEmitter<ITodo>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  addNewTodo(): void {
-
+  onSubmit(form: NgForm): void {
     this.id = ++this.id;
-    const newTodo: ITodo = {
+    const newTodo = {
       id: this.id,
-      text: this.text,
-      completed: false,
-      date: moment().format('DD.MM.YYYY-h:mm:ss a'),
+      text: form.value.text,
     };
     this.onTodo.emit(newTodo);
-    this.text = null;
+
   }
 }

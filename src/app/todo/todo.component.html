@@ -1,15 +1,19 @@
 <div class="card">
   <section class="section">
     <input
-    id="check"
     type="checkbox"
     [checked]="todo.completed"
-    >
+    (click)="completed($event)"
+    />
 
-  <p
-  [ngClass]="{'complite': todo.completed}"
-  >{{todo.text}}</p>
-  <p>{{todo.date}}</p>
+ <span
+  [ngClass]="{'completed': todo.completed}"
+  >
+  {{todo.text}} Date:
+  {{todo.createdAt}}
+  {{todo.updatedAt}}
   <button class="btn" (click)=deleteTodo()>Удалить</button>
+  <button class="btn" (click)=toggleEdit()>Edit</button>
+</span>
 </section>
 </div>

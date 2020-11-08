@@ -10,23 +10,28 @@ import { ITodo } from '../models/todo.interface';
 export class TodoComponent implements OnInit, AfterViewInit {
   @Input() todo: ITodo;
   @Output() onDeleteTodo: EventEmitter<ITodo> = new EventEmitter<ITodo>();
+  @Output() onCompleted: EventEmitter<ITodo> = new EventEmitter<ITodo>();
+  @Output() onEditMode: EventEmitter<void> = new EventEmitter<void>()
 
   constructor() {}
 
   ngAfterViewInit(): void {
-    const chackbox = document.getElementById('check');
-    chackbox.addEventListener('change', (event) => {
-     this.todo.completed = event.target.checked;
-     console.log(this.todo);
-
-
-    })
   }
 
+  completed(event): void {
+    event.preventDefault();
+    this.onCompleted.emit();
+
+  }
   ngOnInit(): void {
+  }
 
+  deleteTodo(): void {
+    this.onDeleteTodo.emit();
   }
-  deleteTodo() {
-    this.onDeleteTodo.emit(this.todo);
+
+  toggleEdit(): void {
+    this.onEditMode.emit();
   }
+
 }
