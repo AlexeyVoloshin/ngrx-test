@@ -16,6 +16,11 @@ import { reducers, metaReducers } from './store/reducers';
 import { AppRoutingModule } from './app-routing.module';
 import { todoReducer, TODO_REDUCER_NODE } from './store/reducers/todo/todo.reducer';
 import { TodoEditComponent } from './todo-edit/todo-edit.component';
+import { UserAuthComponent } from './user-auth/user-auth.component';
+import { authReducer, AUTH_REDUCER_NODE } from './store/reducers/auth/auth.reducer';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthEffects } from './store/effects/auth.effects';
 // import { appReducers } from './store/reducers/app.reducers';
 // import { reducers, metaReducers } from './store/reducers;
 
@@ -28,12 +33,16 @@ import { TodoEditComponent } from './todo-edit/todo-edit.component';
     TodoComponent,
     HeaderComponent,
     TodoEditComponent,
+    UserAuthComponent,
+    LoginFormComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     StoreModule.forFeature(TODO_REDUCER_NODE, todoReducer),
+    StoreModule.forFeature(AUTH_REDUCER_NODE, authReducer),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
@@ -42,7 +51,7 @@ import { TodoEditComponent } from './todo-edit/todo-edit.component';
       }
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([AppEffects, AuthEffects]),
     StoreRouterConnectingModule.forRoot(),
   ],
   providers: [],

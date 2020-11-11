@@ -1,0 +1,7 @@
+<app-login-form
+  *ngIf="loaded$ | async"
+  [formError]="serverError$ | async"
+  [disabled]="loading$ | async"
+  (login)="onLogin($event)"
+
+></app-login-form>
